@@ -31,7 +31,9 @@ namespace PetShop.WebAPI
         {
 
             serviceCollection.AddScoped<IPetService, PetService>();
+            serviceCollection.AddScoped<IOwnerService, OwnerService>();
             serviceCollection.AddScoped<IPetRepository, PetRepository>();
+            serviceCollection.AddScoped<IOwnerRepository, OwnerRepostiory>();
 
             serviceCollection.AddControllers();
         }
@@ -45,8 +47,9 @@ namespace PetShop.WebAPI
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
                    var petRepo =  scope.ServiceProvider.GetRequiredService<IPetRepository>();
+                   var ownerRepo =  scope.ServiceProvider.GetRequiredService<IOwnerRepository>();
 
-                    var mockDa = new MockData(petRepo);
+                    var mockDa = new MockData(petRepo, ownerRepo);
                     mockDa.InitData();
                 }
                 
