@@ -130,7 +130,8 @@ namespace PetShop.Infrastructure.Data
 
 
 
-
+            owner1.SetOnePet(pet1);
+           
 
             petRepo.CreatePet(pet1);
             petRepo.CreatePet(pet2);
@@ -138,6 +139,11 @@ namespace PetShop.Infrastructure.Data
             petRepo.CreatePet(pet4);
             petRepo.CreatePet(pet5);
             petRepo.CreatePet(pet6);
+
+           
+        
+            
+           
         }
 
 

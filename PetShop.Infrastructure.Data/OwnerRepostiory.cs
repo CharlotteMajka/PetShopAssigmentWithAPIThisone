@@ -21,7 +21,7 @@ namespace PetShop.Infrastructure.Data
 
         public void DeleteOwner(Owner OwnerToDelete)
         {
-            throw new NotImplementedException();
+            listOwners.Remove(OwnerToDelete);
         }
 
         public Owner GetOwnerByID(int id)
@@ -34,12 +34,24 @@ namespace PetShop.Infrastructure.Data
 
         public List<Owner> ReadOwners()
         {
-            throw new NotImplementedException();
+            return listOwners;
         }
 
         public Owner UpdateOwner(Owner owner)
         {
-            throw new NotImplementedException();
+
+            var OwnerFromMock = GetOwnerByID(owner.id);
+
+            OwnerFromMock.FirstName = owner.FirstName;
+            OwnerFromMock.LastName = owner.LastName;
+            OwnerFromMock.PhoneNr = owner.PhoneNr;
+            OwnerFromMock.Email = owner.Email;
+            OwnerFromMock.Address = owner.Address;
+
+            return OwnerFromMock;
+
+
+
         }
     }
 }

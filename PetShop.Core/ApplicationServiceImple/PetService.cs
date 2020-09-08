@@ -61,7 +61,7 @@ namespace PetShop.Core.ApplicationServiceImple
             {
                 throw new InvalidDataException("Something is wrong with the ID? check it is correct");
             }
-            else if (petRepository.GetPetByID(idToupdate) != null )
+            else if (petRepository.GetPetByID(idToupdate) == null )
             {
 
                 throw new InvalidDataException("The pet could not be found in");
