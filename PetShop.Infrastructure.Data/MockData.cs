@@ -131,6 +131,7 @@ namespace PetShop.Infrastructure.Data
 
 
             owner1.SetOnePet(pet1);
+            owner1.SetOnePet(pet2);
            
 
             petRepo.CreatePet(pet1);

@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.WebAPI", "PetShop.WebAPI\PetShop.WebAPI.csproj", "{2645A05D-9359-4571-BC2F-5523F4DDD53B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetShop.Infrastructure.MSSQL.Data", "PetShop.Infrastructure.MSSQL.Data\PetShop.Infrastructure.MSSQL.Data.csproj", "{0F2F71C4-0C41-4867-A1C2-2199AF02C016}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2645A05D-9359-4571-BC2F-5523F4DDD53B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2645A05D-9359-4571-BC2F-5523F4DDD53B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2645A05D-9359-4571-BC2F-5523F4DDD53B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2F71C4-0C41-4867-A1C2-2199AF02C016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2F71C4-0C41-4867-A1C2-2199AF02C016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2F71C4-0C41-4867-A1C2-2199AF02C016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2F71C4-0C41-4867-A1C2-2199AF02C016}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{BA84F13B-FAF8-4BCF-AF93-A86BE63FBBAD} = {35BF673E-2715-40CA-B3CA-88235644FCAF}
 		{5629056E-CDFF-4E96-8F36-DCC912A8C0B7} = {5822EB49-C314-4C29-8D4A-1ED745CFA039}
 		{2645A05D-9359-4571-BC2F-5523F4DDD53B} = {6A647F13-9C91-4C42-AD6E-1907F7B6D9DF}
+		{0F2F71C4-0C41-4867-A1C2-2199AF02C016} = {5822EB49-C314-4C29-8D4A-1ED745CFA039}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3868C9C9-64F5-49B2-A525-AA45B717C055}
