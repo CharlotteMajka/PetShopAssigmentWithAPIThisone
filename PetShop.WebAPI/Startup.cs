@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +37,16 @@ namespace PetShop.WebAPI
             serviceCollection.AddScoped<IPetRepository, PetRepository>();
             serviceCollection.AddScoped<IOwnerRepository, OwnerRepostiory>();
 
+            serviceCollection.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { 
+                Title = "Swagger demo API", 
+                Description = "Demo API for Showing swagger",
+                Version = "v1"
+                
+                });
+            });
+
             serviceCollection.AddControllers().AddNewtonsoftJson(o => {
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 o.SerializerSettings.MaxDepth = 5;
@@ -56,8 +67,8 @@ namespace PetShop.WebAPI
                     var mockDa = new MockData(petRepo, ownerRepo);
                     mockDa.InitData();
                 }
-                
 
+           
             //}
 
             app.UseHttpsRedirection();
@@ -65,13 +76,22 @@ namespace PetShop.WebAPI
             app.UseRouting();
 
             app.UseAuthorization();
-
             
-
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => 
             {
                 endpoints.MapControllers();
             });
+           
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Demo API");
+            }
+            );
+            
+
+            
         }
     }
 }
