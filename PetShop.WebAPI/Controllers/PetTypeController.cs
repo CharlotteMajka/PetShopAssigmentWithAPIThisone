@@ -61,14 +61,34 @@ namespace PetShop.WebAPI.Controllers
 
         // PUT api/<PetTypeController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult<PetType> Put(int id, [FromBody] PetType pettype)
         {
+            try
+            {
+                return Accepted( petTypeService.updatePet(id, pettype));
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+
         }
 
         // DELETE api/<PetTypeController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult<PetType> Delete(int id)
         {
+            try
+            {
+                return Accepted(petTypeService.DeletePetType(id));
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(500, e.Message);
+            }
+
         }
     }
 }

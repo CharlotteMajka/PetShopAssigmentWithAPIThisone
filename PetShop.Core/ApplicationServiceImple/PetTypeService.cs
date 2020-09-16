@@ -4,6 +4,7 @@ using PetShop.Core.Entities;
 using PetShop.Core.Filters;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace PetShop.Core.ApplicationServiceImple
@@ -41,9 +42,16 @@ namespace PetShop.Core.ApplicationServiceImple
             return petTypeRepo.ReadAllTypes(filter);
         }
 
-        public PetType updatePet(int id, PetType pertype)
+        public PetType updatePet(int id, PetType pettype)
         {
-            throw new NotImplementedException();
+            if ( id < 0)
+            {
+                throw new InvalidDataException("id must be above 0");
+
+            }
+
+            return petTypeRepo.updatePet(id, pettype);
+
         }
     }
 }

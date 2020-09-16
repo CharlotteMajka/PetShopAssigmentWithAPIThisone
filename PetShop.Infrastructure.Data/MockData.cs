@@ -174,12 +174,12 @@ namespace PetShop.Infrastructure.Data
             petRepo.CreatePet(pet5);
             petRepo.CreatePet(pet6);
 
-            petType1.addPetToType(pet1);
+           /* petType1.addPetToType(pet1);
             petType1.addPetToType(pet3);
             pettype3.addPetToType(pet4);
             pettype4.addPetToType(pet2);
             pettype5.addPetToType(pet5);
-            pettype5.addPetToType(pet6);
+            pettype5.addPetToType(pet6);*/
         
             
            

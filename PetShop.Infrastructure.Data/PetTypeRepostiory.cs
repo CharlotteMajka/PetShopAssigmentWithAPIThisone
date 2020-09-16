@@ -75,7 +75,11 @@ namespace PetShop.Infrastructure.Data
 
         public PetType updatePet(int id, PetType pettype)
         {
-            throw new NotImplementedException();
+            var pettypetoupdate = GetPetTypeById(pettype.id);
+
+            pettypetoupdate.Pettype = pettype.Pettype;
+
+            return pettypetoupdate;
         }
     }
 }
