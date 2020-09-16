@@ -18,7 +18,7 @@ namespace PetShop.Core.DomainServices
         public PetType addPetType(PetType pettype);
 
         //Delete
-        public PetType DeletePetType(int id);
+        public void DeletePetType(int id);
 
         //Update
         public PetType updatePet(int id, PetType pettype);

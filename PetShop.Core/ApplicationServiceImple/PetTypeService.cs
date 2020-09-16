@@ -33,12 +33,12 @@ namespace PetShop.Core.ApplicationServiceImple
 
         public PetType GetPetTypeById(int id)
         {
-            throw new NotImplementedException();
+            return petTypeRepo.GetPetTypeById(id);
         }
 
         public FilteredList<PetType> ReadAllTypes(Filter filter)
         {
-            throw new NotImplementedException();
+            return petTypeRepo.ReadAllTypes(filter);
         }
 
         public PetType updatePet(int id, PetType pertype)
