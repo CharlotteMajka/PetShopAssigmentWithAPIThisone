@@ -1,6 +1,7 @@
 ﻿using PetShop.Core.ApplicationServices;
 using PetShop.Core.DomainServices;
 using PetShop.Core.Entities;
+using PetShop.Core.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,10 +45,20 @@ namespace PetShop.Core.ApplicationServiceImple
             return ownerrepo.GetOwnerByID(id);
         }
 
-        public List<Owner> ReadOwners()
+        public FilteredList<Owner> ReadOwners(Filter filter)
+        {
+            if (!string.IsNullOrEmpty(filter.SearchText) && string.IsNullOrEmpty(filter.SearchField))
+            {
+                filter.SearchField = "FirstName";
+            }
+
+            return ownerrepo.ReadOwners(filter);
+        }
+
+        /*public List<Owner> ReadOwners()
         {
             return ownerrepo.ReadOwners();
-        }
+        }*/
 
         public Owner UpdateOwner(int idToupdate, Owner OwnerToUpdate)
         {

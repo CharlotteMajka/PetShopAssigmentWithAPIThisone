@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationServices;
 using PetShop.Core.Entities;
+using PetShop.Core.Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,11 +25,11 @@ namespace PetShop.WebAPI.Controllers
 
         // GET: api/<OwnerController>
         [HttpGet]
-        public ActionResult< IEnumerable<Owner>> Get()
+        public ActionResult<FilteredList<Owner>> Get([FromQuery] Filter filter)
         {
             try
             {
-                return Ok(ownerService.ReadOwners());
+                return Ok(ownerService.ReadOwners(filter));
 
             }catch(InvalidDataException e )
             {

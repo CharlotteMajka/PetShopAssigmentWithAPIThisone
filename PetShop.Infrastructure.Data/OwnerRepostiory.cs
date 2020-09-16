@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using PetShop.Core.DomainServices;
 using PetShop.Core.Entities;
+using PetShop.Core.Filters;
 
 namespace PetShop.Infrastructure.Data
 {
@@ -32,10 +33,57 @@ namespace PetShop.Infrastructure.Data
             return result;
         }
 
-        public List<Owner> ReadOwners()
+        public FilteredList<Owner> ReadOwners(Filter filter)
+        {
+            var filteredList = new FilteredList<Owner>();
+
+            filteredList.TotalCount = listOwners.Count;
+            filteredList.FilterUsed = filter;
+
+
+            IEnumerable<Owner> filtering = listOwners;
+
+            if (!string.IsNullOrEmpty(filter.SearchText))
+            {
+                switch (filter.SearchField)
+                {
+
+                    case "FirstName":
+                        filtering = filtering.Where(o => o.FirstName.ToLower().Contains(filter.SearchText.ToLower()));
+                        break;
+                    case "LastName":
+                        filtering = filtering.Where(o => o.LastName.Contains(filter.SearchText));
+                        break;
+
+
+
+                }
+
+
+            }
+
+            if (!string.IsNullOrEmpty(filter.OrderDirection) && !string.IsNullOrEmpty(filter.OrderProperty))
+            {
+                var prop = typeof(Owner).GetProperty(filter.OrderProperty);
+
+                filtering = "ASC".Equals(filter.OrderDirection) ?
+                    filtering.OrderBy(o => prop.GetValue(o, null)) :
+                    filtering.OrderByDescending(o => prop.GetValue(o, null));
+
+            }
+
+            filteredList.List = filtering.ToList();
+
+            filteredList.ShowingCount = filtering.Count();
+
+            return filteredList;
+
+        }
+
+        /*public List<Owner> ReadOwners()
         {
             return listOwners;
-        }
+        }*/
 
         public Owner UpdateOwner(Owner owner)
         {
