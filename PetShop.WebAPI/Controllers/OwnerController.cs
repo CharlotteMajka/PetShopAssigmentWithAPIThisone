@@ -28,11 +28,11 @@ namespace PetShop.WebAPI.Controllers
         {
             try
             {
-                return ownerService.ReadOwners();
+                return Ok(ownerService.ReadOwners());
 
             }catch(InvalidDataException e )
             {
-                return StatusCode(404, e.Message);
+                return StatusCode(500, e.Message);
             }
         }
 
@@ -42,12 +42,15 @@ namespace PetShop.WebAPI.Controllers
         {
             try
             {
+              
+                return Ok(ownerService.GetOwnerById(id));
                 
-                return ownerService.GetOwnerById(id);
             }
             catch (InvalidDataException e)
             {
-                return StatusCode(501, e.Message);
+                
+                return StatusCode(500, e.Message);
+                //der skal laves en 404code hvis owner ikke kan findes!!!
                 
             }
 
@@ -79,13 +82,14 @@ namespace PetShop.WebAPI.Controllers
 
             try
             {
-                return Ok(ownerService.UpdateOwner(id, owner));
+                return Accepted(ownerService.UpdateOwner(id, owner));
 
             }
             catch (InvalidDataException e)
             {
 
-                return StatusCode(400, e.Message);
+                return StatusCode(500, e.Message);
+                //404 kode skal laves hvis owner er null
             }
         }
 
@@ -96,13 +100,14 @@ namespace PetShop.WebAPI.Controllers
 
             try
             {
-                return Ok(ownerService.DeleteOwner(id));
+                return Accepted(ownerService.DeleteOwner(id));
 
             }
             catch (InvalidDataException e)
             {
 
-                return StatusCode(400, e.Message);
+                return StatusCode(500, e.Message);
+                //kode med 404 skal laves 
             }
         }
     }

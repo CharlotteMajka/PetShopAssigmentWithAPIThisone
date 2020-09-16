@@ -1,5 +1,6 @@
 ﻿using PetShop.Core.DomainServices;
 using PetShop.Core.Entities;
+using PetShop.Core.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,11 @@ namespace PetShop.Infrastructure.Data
 
        
 
-        public List<Pet> ReadPets()
+        /*public List<Pet> ReadPets()
         {
             return (List<Pet>)listPets;
         }
+        */
 
 
         public Pet CreatePet(Pet pet1)
@@ -58,6 +60,53 @@ namespace PetShop.Infrastructure.Data
 
             return petThatNeedsUpdate;
             
+        }
+
+        public FilteredList<Pet> ReadAll(Filter filter)
+        {
+            var filteredList = new FilteredList<Pet>();
+
+            filteredList.TotalCount = listPets.Count;
+            filteredList.FilterUsed = filter;
+
+
+            IEnumerable<Pet> filtering = listPets;
+
+            if (!string.IsNullOrEmpty(filter.SearchText))
+            {
+                switch (filter.SearchField)
+                {
+
+                    case "Name":
+                        filtering = filtering.Where(p => p.Name.ToLower().Contains(filter.SearchText.ToLower()));
+                        break;
+                    case "Color":
+                        filtering = filtering.Where(p => p.Color.Contains(filter.SearchText));
+                        break;
+
+
+
+                }
+
+
+            }
+
+            if (!string.IsNullOrEmpty(filter.OrderDirection) && !string.IsNullOrEmpty(filter.OrderProperty))
+            {
+                var prop = typeof(Pet).GetProperty(filter.OrderProperty);
+
+                filtering = "ASC".Equals(filter.OrderDirection) ?
+                    filtering.OrderBy(p => prop.GetValue(p, null)) :
+                    filtering.OrderByDescending(p => prop.GetValue(p, null));
+
+            }
+
+            filteredList.List = filtering.ToList();
+
+            filteredList.ShowingCount = filtering.Count();
+
+            return filteredList;
+
         }
     }
 }

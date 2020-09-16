@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationServices;
 using PetShop.Core.Entities;
+using PetShop.Core.Filters;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,10 +23,16 @@ namespace PetShop.WebAPI.Controllers
         }
         // GET: api/<PetsController>
         [HttpGet]
-        public ActionResult<List<Pet>> Get()
-        { 
-            return petService.getPets();
-        }
+        public ActionResult<FilteredList<Pet>> Get([FromQuery] Filter filter)
+        {  try
+            {
+                return Ok(petService.GetAllPets(filter));
+            }
+            catch(InvalidDataException e )
+            {
+                return StatusCode(500, e.Message);
+            }   
+         }
 
         // GET api/<PetsController>/5
         [HttpGet("{id}")]
@@ -36,7 +43,8 @@ namespace PetShop.WebAPI.Controllers
             }
             catch (InvalidDataException e) 
             {
-                return StatusCode(501, e.Message);            
+                return StatusCode(500, e.Message);            
+                //404 kode mangler
             }
         }
 
@@ -53,7 +61,7 @@ namespace PetShop.WebAPI.Controllers
             catch (Exception e)
             {
 
-                return StatusCode(501, e.Message);
+                return StatusCode(500, e.Message);
             }
 
 
@@ -65,10 +73,11 @@ namespace PetShop.WebAPI.Controllers
         {
             try
             {
-                return Ok(petService.UpdatePet(id, pet));
+                return Accepted(petService.UpdatePet(id, pet));
             }catch(InvalidDataException e)
             {
-                return StatusCode(501, e.Message);
+                return StatusCode(500, e.Message);
+                //404 mangler
             }
         }
 
@@ -78,10 +87,12 @@ namespace PetShop.WebAPI.Controllers
         {
             try
             {
-                return Ok(petService.DeletePet(id));
+                return Accepted(petService.DeletePet(id));
+
             } catch(InvalidDataException e)
             {
                 return StatusCode(400, e.Message);
+                //404 mangler 
             }
         }
     }

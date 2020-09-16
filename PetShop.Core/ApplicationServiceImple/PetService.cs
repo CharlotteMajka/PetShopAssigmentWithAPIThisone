@@ -1,6 +1,7 @@
 ﻿using PetShop.Core.ApplicationServices;
 using PetShop.Core.DomainServices;
 using PetShop.Core.Entities;
+using PetShop.Core.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,10 +44,10 @@ namespace PetShop.Core.ApplicationServiceImple
             return pet; 
         }
 
-        public List<Pet> getPets()
+       /* public List<Pet> getPets()
         {   
             return petRepository.ReadPets();
-        }
+        }*/
 
         
 
@@ -74,32 +75,30 @@ namespace PetShop.Core.ApplicationServiceImple
             }
         }
 
-        public IEnumerable<Pet> SortPetsByPrice()
+       /* public IEnumerable<Pet> SortPetsByPrice()
         {
            var SortPetsByPrice = petRepository.ReadPets().OrderByDescending(s => s.Price);
 
             return SortPetsByPrice.ToList();
 
 
-        }
+        }*/
 
 
-        public IEnumerable<Pet> Get5ChepestPets()
+        /*public IEnumerable<Pet> Get5ChepestPets()
         {
             var Get5ChepestPets = petRepository.ReadPets().OrderBy(s => s.Price);
             
             return Get5ChepestPets;
 
 
-        }
+        }*/
 
-        public IEnumerable<Pet> SearchPetByType(string stringToLookFore)
+        /*public IEnumerable<Pet> SearchPetByType(string stringToLookFore)
         {
 
             return petRepository.ReadPets().FindAll(s => s.Type.ToLower().Contains(stringToLookFore.ToLower()));
-
-
-        }
+        }*/
 
         public Pet GetPetById(int id)
         {   
@@ -113,5 +112,14 @@ namespace PetShop.Core.ApplicationServiceImple
             return petRepository.GetPetByID(id);
         }
 
+        public FilteredList<Pet> GetAllPets(Filter filter)
+        {
+            if (!string.IsNullOrEmpty(filter.SearchText) && string.IsNullOrEmpty(filter.SearchField))
+            {
+                filter.SearchField = "Name";
+            }
+
+            return petRepository.ReadAll(filter);
+        }
     }
 }
