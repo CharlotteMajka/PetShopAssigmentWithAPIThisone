@@ -54,7 +54,8 @@ namespace PetShop.WebAPI.Controllers
         {
             try
             {
-                var petReturn = petService.AddNewPet(pet.Name, pet.Type, pet.Dob, pet.Color, pet.PreviousOwner, pet.Price);
+                var pettype = pet.Type;
+                var petReturn = petService.AddNewPet(pet.Name, pettype, pet.Dob, pet.Color, pet.PreviousOwner, pet.Price);
 
                 return Created("", petReturn);
             }

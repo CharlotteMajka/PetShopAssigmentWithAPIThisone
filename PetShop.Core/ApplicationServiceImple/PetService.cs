@@ -19,7 +19,7 @@ namespace PetShop.Core.ApplicationServiceImple
             petRepository = _petRepository;
         }
 
-        public Pet AddNewPet(string name, string type,DateTime dob, string color, Owner previousOwner, double price)
+        public Pet AddNewPet(string name, PetType type,DateTime dob, string color, Owner previousOwner, double price)
         {
             Pet TheNewPet = new Pet()
             {

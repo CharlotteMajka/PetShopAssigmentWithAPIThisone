@@ -34,8 +34,10 @@ namespace PetShop.WebAPI
 
             serviceCollection.AddScoped<IPetService, PetService>();
             serviceCollection.AddScoped<IOwnerService, OwnerService>();
+            serviceCollection.AddScoped<IPetTypeService, PetTypeService>();
             serviceCollection.AddScoped<IPetRepository, PetRepository>();
             serviceCollection.AddScoped<IOwnerRepository, OwnerRepostiory>();
+            serviceCollection.AddScoped<IPetTypeRerpository, PetTypeRepostiory>();
 
             serviceCollection.AddSwaggerGen(options =>
             {
@@ -63,8 +65,9 @@ namespace PetShop.WebAPI
                 {
                    var petRepo =  scope.ServiceProvider.GetRequiredService<IPetRepository>();
                    var ownerRepo =  scope.ServiceProvider.GetRequiredService<IOwnerRepository>();
+                   var petTypeRepo = scope.ServiceProvider.GetRequiredService<IPetTypeRerpository>(); 
 
-                    var mockDa = new MockData(petRepo, ownerRepo);
+                    var mockDa = new MockData(petRepo, ownerRepo, petTypeRepo);
                     mockDa.InitData();
                 }
 

@@ -10,11 +10,13 @@ namespace PetShop.Infrastructure.Data
     {
         IPetRepository petRepo;
         IOwnerRepository ownerRepo;
+        IPetTypeRerpository petTyperepo;
 
-        public MockData(IPetRepository repo, IOwnerRepository repo2)
+        public MockData(IPetRepository repo, IOwnerRepository repo2, IPetTypeRerpository repo3)
         {
             petRepo = repo;
             ownerRepo = repo2;
+            petTyperepo = repo3;
 
         }
 
@@ -56,13 +58,37 @@ namespace PetShop.Infrastructure.Data
             ownerRepo.CreateOwner(owner2);
             ownerRepo.CreateOwner(owner3);
 
+            var petType1 = new PetType()
+            {
+                Pettype = "Dog"
+
+            };
+            var pettype2 = new PetType()
+            {
+                Pettype = "Cat"
+            };
+            var pettype3 = new PetType()
+            {
+                Pettype = "Horse"
+            };
+            var pettype4 = new PetType()
+            {
+                Pettype = "Bird"
+            };
+            var pettype5 = new PetType()
+            {
+                Pettype = "Pig"
+            };
+
+         
+
             var pet1 = new Pet
             {
 
                 Name = "doggy",
                 Dob = System.DateTime.Now.AddYears(-2),
                 Price = 1000,
-                Type = "dog",
+                Type = petType1,
                 PreviousOwner = owner1
 
                 
@@ -77,7 +103,7 @@ namespace PetShop.Infrastructure.Data
                 Name = "Bo",
                 Dob = System.DateTime.Now.AddYears(-3),
                 Price = 1500,
-                Type = "Bird",
+                Type = pettype4,
                 PreviousOwner = ownerRepo.GetOwnerByID(1)
 
 
@@ -89,7 +115,7 @@ namespace PetShop.Infrastructure.Data
                 Name = "HAns",
                 Dob = System.DateTime.Now.AddYears(-6),
                 Price = 400.00,
-                Type = "dog",
+                Type = petType1,
                 PreviousOwner = ownerRepo.GetOwnerByID(2)
 
 
@@ -101,7 +127,7 @@ namespace PetShop.Infrastructure.Data
                 Name = "bird",
                 Dob = System.DateTime.Now.AddYears(-2),
                 Price = 100.00,
-                Type = "bird",
+                Type = pettype3,
                 PreviousOwner = ownerRepo.GetOwnerByID(2)
 
 
@@ -112,7 +138,7 @@ namespace PetShop.Infrastructure.Data
                 Name = "penny",
                 Dob = System.DateTime.Now.AddYears(-2),
                 Price = 200.00,
-                Type = "Horse",
+                Type = pettype5,
                 PreviousOwner = ownerRepo.GetOwnerByID(3)
 
 
@@ -123,7 +149,7 @@ namespace PetShop.Infrastructure.Data
                 Name = "kim",
                 Dob = System.DateTime.Now.AddYears(-7),
                 Price = 300.00,
-                Type = "pig",
+                Type = pettype5,
                 PreviousOwner = ownerRepo.GetOwnerByID(3)
 
             };
@@ -132,6 +158,13 @@ namespace PetShop.Infrastructure.Data
 
             owner1.SetOnePet(pet1);
             owner1.SetOnePet(pet2);
+
+            petTyperepo.addPetType(petType1);
+            petTyperepo.addPetType(pettype2);
+            petTyperepo.addPetType(pettype3);
+            petTyperepo.addPetType(pettype4);
+            petTyperepo.addPetType(pettype5);
+
            
 
             petRepo.CreatePet(pet1);
@@ -141,7 +174,12 @@ namespace PetShop.Infrastructure.Data
             petRepo.CreatePet(pet5);
             petRepo.CreatePet(pet6);
 
-           
+            petType1.addPetToType(pet1);
+            petType1.addPetToType(pet3);
+            pettype3.addPetToType(pet4);
+            pettype4.addPetToType(pet2);
+            pettype5.addPetToType(pet5);
+            pettype5.addPetToType(pet6);
         
             
            
