@@ -19,12 +19,19 @@ namespace PetShop.Infrastructure.Data
             return (List<Pet>)listPets;
         }
         */
+        
 
 
         public Pet CreatePet(Pet pet1)
         {
             pet1.Id = id++;
             listPets.Add(pet1);
+
+            /*if(!pet1.Type.Equals(null))
+            {
+                var pettype = pet1.Type;
+                pettype.addPetToType(pet1);
+            }*/
             return pet1;
         }
 
@@ -54,9 +61,12 @@ namespace PetShop.Infrastructure.Data
             petThatNeedsUpdate.PreviousOwner = pet.PreviousOwner;
             petThatNeedsUpdate.Price = pet.Price;
             petThatNeedsUpdate.SoldDate = pet.SoldDate;
-            petThatNeedsUpdate.Type = pet.Type;
             petThatNeedsUpdate.Color = pet.Color;
             petThatNeedsUpdate.Dob = pet.Dob;
+
+
+          
+        
 
             return petThatNeedsUpdate;
             

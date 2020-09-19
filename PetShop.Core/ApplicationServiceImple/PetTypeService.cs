@@ -5,6 +5,7 @@ using PetShop.Core.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 
 namespace PetShop.Core.ApplicationServiceImple
@@ -15,6 +16,21 @@ namespace PetShop.Core.ApplicationServiceImple
         public PetTypeService(IPetTypeRerpository petRepo)
         {
             petTypeRepo = petRepo;
+        }
+
+        public PetType addPetToPettype(Pet petToAdd, PetType pettype)
+        {
+            if (petToAdd == null)
+            {
+                throw new ArgumentNullException("Pet not found");
+            }
+            if (pettype == null)
+            {
+                throw new ArgumentNullException("PetType not found");
+            }
+
+            petTypeRepo.AddPetToPetType(petToAdd, pettype);
+            return pettype;
         }
 
         public PetType addPetType(PetType pettype)
@@ -29,7 +45,13 @@ namespace PetShop.Core.ApplicationServiceImple
 
         public PetType DeletePetType(int id)
         {
-            throw new NotImplementedException();
+            var pettype = petTypeRepo.GetPetTypeById(id);
+            if (pettype == null)
+            {
+                throw new ArgumentNullException("PetType is null");
+            }
+            petTypeRepo.DeletePetType(pettype.id);
+            return pettype;
         }
 
         public PetType GetPetTypeById(int id)
@@ -48,6 +70,11 @@ namespace PetShop.Core.ApplicationServiceImple
             {
                 throw new InvalidDataException("id must be above 0");
 
+            }
+           //hvorfor vil jeg gøre dette, ?? 
+            else if (id != pettype.id )
+            {
+                throw new InvalidDataException("");
             }
 
             return petTypeRepo.updatePet(id, pettype);

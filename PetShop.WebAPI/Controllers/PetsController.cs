@@ -46,6 +46,10 @@ namespace PetShop.WebAPI.Controllers
                 return StatusCode(500, e.Message);            
                 //404 kode mangler
             }
+            catch (ArgumentNullException e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
 
         // POST api/<PetsController>
@@ -55,7 +59,7 @@ namespace PetShop.WebAPI.Controllers
             try
             {
                 var pettype = pet.Type;
-                var petReturn = petService.AddNewPet(pet.Name, pettype, pet.Dob, pet.Color, pet.PreviousOwner, pet.Price);
+                var petReturn = petService.AddNewPet(pet.Name,  pet.Type, pet.Dob, pet.Color, pet.PreviousOwner, pet.Price);
 
                 return Created("", petReturn);
             }
@@ -75,10 +79,14 @@ namespace PetShop.WebAPI.Controllers
             try
             {
                 return Accepted(petService.UpdatePet(id, pet));
+
             }catch(InvalidDataException e)
             {
                 return StatusCode(500, e.Message);
-                //404 mangler
+               
+            } catch (ArgumentNullException e)
+            {
+                return StatusCode(404, e.Message);
             }
         }
 
@@ -90,10 +98,14 @@ namespace PetShop.WebAPI.Controllers
             {
                 return Accepted(petService.DeletePet(id));
 
-            } catch(InvalidDataException e)
+            } catch(ArgumentNullException e)
             {
-                return StatusCode(400, e.Message);
-                //404 mangler 
+                return StatusCode(404, e.Message);
+                
+            }
+            catch(InvalidDataException e)
+            {
+                return StatusCode(500, e.Message); 
             }
         }
     }

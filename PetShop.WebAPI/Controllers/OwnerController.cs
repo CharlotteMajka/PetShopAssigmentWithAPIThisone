@@ -51,8 +51,12 @@ namespace PetShop.WebAPI.Controllers
             {
                 
                 return StatusCode(500, e.Message);
-                //der skal laves en 404code hvis owner ikke kan findes!!!
                 
+                
+            }
+            catch(ArgumentNullException e)
+            {
+                return StatusCode(404, e.Message);
             }
 
 
@@ -90,7 +94,12 @@ namespace PetShop.WebAPI.Controllers
             {
 
                 return StatusCode(500, e.Message);
-                //404 kode skal laves hvis owner er null
+                
+            }
+
+            catch(ArgumentNullException e)
+            {
+                return StatusCode(404, e.Message);
             }
         }
 
@@ -109,6 +118,10 @@ namespace PetShop.WebAPI.Controllers
 
                 return StatusCode(500, e.Message);
                 //kode med 404 skal laves 
+            }
+            catch (ArgumentNullException e)
+            {
+                return StatusCode(404, e.Message);
             }
         }
     }

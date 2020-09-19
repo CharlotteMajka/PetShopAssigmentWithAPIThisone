@@ -11,7 +11,13 @@ namespace PetShop.Infrastructure.Data
     public class PetTypeRepostiory : IPetTypeRerpository
     {
         static int id = 1;
-        static List<PetType> ListpetTypes = new List<PetType>(); 
+        static List<PetType> ListpetTypes = new List<PetType>();
+
+        public void AddPetToPetType(Pet petToAdd, PetType petType)
+        {
+            petType.addPetToType(petToAdd);
+        }
+
         public PetType addPetType(PetType pettype)
         {
             pettype.id = id++;

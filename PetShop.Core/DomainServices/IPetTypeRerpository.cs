@@ -22,5 +22,8 @@ namespace PetShop.Core.DomainServices
 
         //Update
         public PetType updatePet(int id, PetType pettype);
+
+        public void AddPetToPetType(Pet petToAdd, PetType pettype);
+
     }
 }

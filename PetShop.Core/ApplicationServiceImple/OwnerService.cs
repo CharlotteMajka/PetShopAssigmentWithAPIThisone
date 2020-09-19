@@ -41,7 +41,15 @@ namespace PetShop.Core.ApplicationServiceImple
         }
 
         public Owner GetOwnerById(int id)
-        {
+        { //var owner = ownerrepo.GetOwnerByID(id);
+            if (id <= 0)
+            {
+                throw new InvalidDataException("ID can't bu 0 or under!");
+            }
+            if (ownerrepo.GetOwnerByID(id) == null )
+            {
+                throw new ArgumentNullException("Owner could not be found");
+            }
             return ownerrepo.GetOwnerByID(id);
         }
 
@@ -62,19 +70,19 @@ namespace PetShop.Core.ApplicationServiceImple
 
         public Owner UpdateOwner(int idToupdate, Owner OwnerToUpdate)
         {
-            if (idToupdate < 0)
+            if (idToupdate <= 0)
             {
                 throw new InvalidDataException("ID must be above 0");
             }
-            else
+            /*else // why this ? der er ikke id på owner to update forhåbenligt 
            if (idToupdate != OwnerToUpdate.id)
             {
                 throw new InvalidDataException("Something is wrong with the ID? check it is correct");
-            }
+            }*/
             else if (ownerrepo.GetOwnerByID(idToupdate) == null)
             {
 
-                throw new InvalidDataException("The Owner could not be found");
+                throw new ArgumentNullException("The Owner could not be found");
             }
             else
             {

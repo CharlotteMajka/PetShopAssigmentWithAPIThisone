@@ -14,17 +14,21 @@ namespace PetShop.Core.ApplicationServiceImple
     {
         private IPetRepository petRepository;
 
+
         public PetService(IPetRepository _petRepository)
         {
             petRepository = _petRepository;
+           
         }
 
-        public Pet AddNewPet(string name, PetType type,DateTime dob, string color, Owner previousOwner, double price)
+        public Pet AddNewPet(string name, PetType pettype ,DateTime dob, string color, Owner previousOwner, double price)
         {
+         
+
             Pet TheNewPet = new Pet()
             {
                 Name = name,
-                Type = type,
+                Type = pettype,
                 Dob = dob,
                 Color = color,
                 PreviousOwner = previousOwner,
@@ -34,11 +38,16 @@ namespace PetShop.Core.ApplicationServiceImple
         }
 
         public Pet DeletePet(int id)
-        {
+        {   
+            if(id <= 0)
+            {
+                throw new InvalidDataException("ID can not be 0 or lower");
+            }
+
             var pet = petRepository.GetPetByID(id);
             if( pet == null)
             {
-                throw new Exception();
+                throw new ArgumentNullException("Pet Could not be found");
             }
              petRepository.DeletePet(pet);
             return pet; 
@@ -53,19 +62,19 @@ namespace PetShop.Core.ApplicationServiceImple
 
         public Pet UpdatePet(int idToupdate, Pet petToUpdate)
         {
-            if (idToupdate < 0)
+            if (idToupdate <= 0)
             {
                 throw new InvalidDataException("ID must be above 0");
             }
-            else
+            /*else // why this? vi har ikke et id ud over det der står i url, der er ikke nogen id i body...   
             if (idToupdate != petToUpdate.Id)
             {
-                throw new InvalidDataException("Something is wrong with the ID? check it is correct");
-            }
+                throw new InvalidDataException("Something is wrong with the ID? check if it is correct");
+            }*/
             else if (petRepository.GetPetByID(idToupdate) == null )
             {
 
-                throw new InvalidDataException("The pet could not be found in");
+                throw new ArgumentNullException("The pet could not be found");
             }
             else
             {
@@ -107,7 +116,10 @@ namespace PetShop.Core.ApplicationServiceImple
                 throw new InvalidDataException("ID must be above 0");
             
             }
-            else 
+            else if (petRepository.GetPetByID(id) == null)
+            {
+                throw new ArgumentNullException("There is no pet with the id " + id + "... ");
+            }
 
             return petRepository.GetPetByID(id);
         }
