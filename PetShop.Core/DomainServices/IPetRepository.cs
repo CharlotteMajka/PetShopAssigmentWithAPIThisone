@@ -20,6 +20,6 @@ namespace PetShop.Core.DomainServices
         Pet GetPetByID(int id);
         FilteredList<Pet> ReadAll(Filter filter);
         //update
-        Pet UpdatePet(Pet pet);
+        Pet UpdatePet(int id, Pet pet);
     }
 }

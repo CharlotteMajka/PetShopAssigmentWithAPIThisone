@@ -52,10 +52,10 @@ namespace PetShop.Infrastructure.Data
             return result;
         }
 
-        public Pet UpdatePet(Pet pet)
+        public Pet UpdatePet(int id, Pet pet)
         {
 
-            Pet petThatNeedsUpdate = GetPetByID(pet.Id);
+            Pet petThatNeedsUpdate = GetPetByID(id);
 
             petThatNeedsUpdate.Name = pet.Name;
             petThatNeedsUpdate.PreviousOwner = pet.PreviousOwner;

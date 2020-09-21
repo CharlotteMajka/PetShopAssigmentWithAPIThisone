@@ -74,11 +74,7 @@ namespace PetShop.Core.ApplicationServiceImple
             {
                 throw new InvalidDataException("ID must be above 0");
             }
-            /*else // why this ? der er ikke id på owner to update forhåbenligt 
-           if (idToupdate != OwnerToUpdate.id)
-            {
-                throw new InvalidDataException("Something is wrong with the ID? check it is correct");
-            }*/
+           
             else if (ownerrepo.GetOwnerByID(idToupdate) == null)
             {
 
@@ -87,7 +83,7 @@ namespace PetShop.Core.ApplicationServiceImple
             else
             {
 
-                return ownerrepo.UpdateOwner(OwnerToUpdate);
+                return ownerrepo.UpdateOwner(idToupdate, OwnerToUpdate);
 
             }
         }

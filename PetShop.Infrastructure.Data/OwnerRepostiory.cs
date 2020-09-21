@@ -85,10 +85,10 @@ namespace PetShop.Infrastructure.Data
             return listOwners;
         }*/
 
-        public Owner UpdateOwner(Owner owner)
+        public Owner UpdateOwner(int id, Owner owner)
         {
 
-            var OwnerFromMock = GetOwnerByID(owner.id);
+            var OwnerFromMock = GetOwnerByID(id);
 
             OwnerFromMock.FirstName = owner.FirstName;
             OwnerFromMock.LastName = owner.LastName;

@@ -71,7 +71,6 @@ namespace PetShop.Core.ApplicationServiceImple
                 throw new InvalidDataException("id must be above 0");
 
             }
-           //hvorfor vil jeg gøre dette, ?? 
             else if (id != pettype.id )
             {
                 throw new InvalidDataException("");
