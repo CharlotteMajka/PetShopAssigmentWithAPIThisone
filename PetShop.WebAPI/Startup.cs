@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +17,8 @@ using PetShop.Core.ApplicationServiceImple;
 using PetShop.Core.ApplicationServices;
 using PetShop.Core.DomainServices;
 using PetShop.Infrastructure.Data;
+using PetShop.Infrastructure.SqlData;
+using PetShop.Infrastructure.SqlData.Repositories;
 
 namespace PetShop.WebAPI
 {
@@ -31,13 +34,14 @@ namespace PetShop.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
+            serviceCollection.AddDbContext<PetShopAppContext>(opt => opt.UseSqlite("Data Source=PetShopApp.db"));
 
             serviceCollection.AddScoped<IPetService, PetService>();
             serviceCollection.AddScoped<IOwnerService, OwnerService>();
             serviceCollection.AddScoped<IPetTypeService, PetTypeService>();
-            serviceCollection.AddScoped<IPetRepository, PetRepository>();
-            serviceCollection.AddScoped<IOwnerRepository, OwnerRepostiory>();
-            serviceCollection.AddScoped<IPetTypeRerpository, PetTypeRepostiory>();
+            serviceCollection.AddScoped<IPetRepository, PetRepositoryDb>();
+           serviceCollection.AddScoped<IOwnerRepository, OwnerRepostiory>();
+           serviceCollection.AddScoped<IPetTypeRerpository, PetTypeRepostiory>();
 
             serviceCollection.AddSwaggerGen(options =>
             {
@@ -60,16 +64,22 @@ namespace PetShop.WebAPI
         {
            // if (env.IsDevelopment())
             //{
+            
                 app.UseDeveloperExceptionPage();
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
-                   var petRepo =  scope.ServiceProvider.GetRequiredService<IPetRepository>();
-                   var ownerRepo =  scope.ServiceProvider.GetRequiredService<IOwnerRepository>();
-                   var petTypeRepo = scope.ServiceProvider.GetRequiredService<IPetTypeRerpository>(); 
+                var ctx = scope.ServiceProvider.GetService<PetShopAppContext>();
 
-                    var mockDa = new MockData(petRepo, ownerRepo, petTypeRepo);
-                    mockDa.InitData();
+
+                DBinitializer.seedDB(ctx); 
+                   //var petRepo =  scope.ServiceProvider.GetRequiredService<IPetRepository>();
+                   //var ownerRepo =  scope.ServiceProvider.GetRequiredService<IOwnerRepository>();
+                   //var petTypeRepo = scope.ServiceProvider.GetRequiredService<IPetTypeRerpository>(); 
+
+                    //var mockDa = new MockData(petRepo, ownerRepo, petTypeRepo);
+                    //mockDa.InitData();
                 }
+               
 
            
             //}
