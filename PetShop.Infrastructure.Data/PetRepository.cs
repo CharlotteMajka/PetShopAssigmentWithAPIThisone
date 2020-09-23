@@ -46,8 +46,10 @@ namespace PetShop.Infrastructure.Data
 
         public Pet GetPetByID(int id)
         {
-         
-            var result = listPets.Where(p => p.Id == id).FirstOrDefault();
+
+            var result = listPets
+                .FirstOrDefault(p => p.Id == id);
+                //Where(p => p.Id == id).FirstOrDefault();
 
             return result;
         }

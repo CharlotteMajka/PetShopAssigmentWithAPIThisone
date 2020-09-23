@@ -43,10 +43,14 @@ namespace PetShop.Infrastructure.SqlData.Repositories
             //Create a Filtered List
             var filteredList = new FilteredList<Pet>();
 
+            /*filteredList.TotalCount = _petContext.pets.Count();
+            filteredList.FilterUsed = filter;*/
+
+            filteredList.List = _petContext.pets.ToList();
 
             //Else just return the full list and get the count from the list (to save a SQL call)
-            filteredList.List = _petContext.pets
-                .Select(p => new Pet { Id = p.Id, Name = p.Name }).ToList();                   
+            /*filteredList.List = _petContext.pets
+                .Select(p => new Pet { Id = p.Id, Name = p.Name }).ToList();    */               
          
             return filteredList;
         }
