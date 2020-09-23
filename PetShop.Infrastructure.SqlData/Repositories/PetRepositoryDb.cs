@@ -28,14 +28,14 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 
         public void DeletePet(Pet petToDelete)
         {
-            var petdeleted = _petContext.pets.Remove(petToDelete);
+            var petdeleted = _petContext.Remove(petToDelete);
             _petContext.SaveChanges(); 
         
         }
 
         public Pet GetPetByID(int id)
         {
-            return _petContext.pets.FirstOrDefault(p => p.Id == id);
+            return _petContext.pets.AsNoTracking().FirstOrDefault(p => p.Id == id);
         }
 
         public FilteredList<Pet> ReadAll(Filter filter)

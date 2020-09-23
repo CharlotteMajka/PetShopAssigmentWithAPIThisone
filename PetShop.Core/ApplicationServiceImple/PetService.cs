@@ -134,12 +134,14 @@ namespace PetShop.Core.ApplicationServiceImple
                 throw new InvalidDataException("ID must be above 0");
             
             }
-            else if (petRepository.GetPetByID(id) == null)
+
+            var tjekpet = petRepository.GetPetByID(id);
+             if (tjekpet == null)
             {
                 throw new ArgumentNullException("There is no pet with the id " + id + "... ");
             }
 
-            return petRepository.GetPetByID(id);
+            return tjekpet);
         }
 
         public FilteredList<Pet> GetAllPets(Filter filter)

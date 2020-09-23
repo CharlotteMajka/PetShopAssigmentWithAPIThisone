@@ -9,11 +9,11 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 {
     public class PetTypeRepositoryDb: IPetTypeRerpository
     {
-        private IPetTypeRerpository _pettypeRepo;
+        readonly PetShopAppContext _petContext;
 
-        public PetTypeRepositoryDb(IPetTypeRerpository pettypeRepo)
+        public PetTypeRepositoryDb(PetShopAppContext ctx)
         {
-            _pettypeRepo = pettypeRepo;
+            _petContext = ctx;
         }
 
         public FilteredList<PetType> ReadAllTypes(Filter filter)
