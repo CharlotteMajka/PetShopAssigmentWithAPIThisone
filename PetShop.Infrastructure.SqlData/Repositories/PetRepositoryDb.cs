@@ -20,6 +20,10 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 
         public Pet CreatePet(Pet TheNewPet)
         {
+            if (TheNewPet.Type != null) 
+            {
+                _petContext.Attach(TheNewPet.Type).State = EntityState.Unchanged;    
+            }
             var pet =_petContext.pets.Add(TheNewPet);
             _petContext.SaveChanges();
 
@@ -43,8 +47,8 @@ namespace PetShop.Infrastructure.SqlData.Repositories
             //Create a Filtered List
             var filteredList = new FilteredList<Pet>();
 
-            /*filteredList.TotalCount = _petContext.pets.Count();
-            filteredList.FilterUsed = filter;*/
+            filteredList.TotalCount = _petContext.pets.Count();
+            filteredList.FilterUsed = filter;
 
             filteredList.List = _petContext.pets.ToList();
 

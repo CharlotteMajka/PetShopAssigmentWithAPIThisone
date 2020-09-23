@@ -33,6 +33,11 @@ namespace PetShop.Infrastructure.Data
           ListpetTypes.Remove(GetPetTypeById(id));
         }
 
+        public void DeletePetType(PetType petTypeToDelete)
+        {
+            throw new NotImplementedException();
+        }
+
         public PetType GetPetTypeById(int id)
         {
             return ListpetTypes.Where(pt => pt.id == id).FirstOrDefault();

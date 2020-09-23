@@ -9,17 +9,8 @@ namespace PetShop.Core.Entities
         public int id { get; set; }
         public String Pettype { get; set; }
 
-        public List<Pet> Pets = new List<Pet>();
+        public List<Pet> Pets = new List<Pet>(); //{ get; set; }
 
-        public void addPetToType(Pet pet)
-        {
-            Pets.Add(pet);
-        }
-       
-        public List<Pet> GetPetsForType()
-        {
-            return Pets;
-        }
-
+      
     }
 }

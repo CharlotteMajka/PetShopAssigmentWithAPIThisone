@@ -10,15 +10,34 @@ namespace PetShop.Infrastructure.SqlData
         public static void seedDB(PetShopAppContext ctx)
         {
             ctx.Database.EnsureDeleted();
-            ctx.Database.EnsureCreated(); 
-        
+            ctx.Database.EnsureCreated();
+
+            var petType1 = new PetType()
+            {
+                Pettype = "Dog"
+
+            };
+            var pettype2 = new PetType()
+            {
+                Pettype = "Cat"
+            };
+            var pettype3 = new PetType()
+            {
+                Pettype = "Horse"
+            };
+
+            ctx.PetTypes.Add(petType1);
+            ctx.PetTypes.Add(pettype2);
+            ctx.PetTypes.Add(pettype3);
+            ctx.SaveChanges();
 
             var pet1 = new Pet
             {
 
                 Name = "doggy",
                 Dob = System.DateTime.Now.AddYears(-2),
-                Price = 1000
+                Price = 1000,
+                Type = petType1
 
 
 
@@ -31,7 +50,8 @@ namespace PetShop.Infrastructure.SqlData
 
                 Name = "Bo",
                 Dob = System.DateTime.Now.AddYears(-3),
-                Price = 1500
+                Price = 1500,
+                Type = pettype3
 
 
             };
@@ -41,8 +61,8 @@ namespace PetShop.Infrastructure.SqlData
 
                 Name = "HAns",
                 Dob = System.DateTime.Now.AddYears(-6),
-                Price = 400.00
-
+                Price = 400.00,
+                Type = pettype3
 
             };
 
@@ -51,7 +71,8 @@ namespace PetShop.Infrastructure.SqlData
 
                 Name = "bird",
                 Dob = System.DateTime.Now.AddYears(-2),
-                Price = 100.00
+                Price = 100.00,
+                Type = pettype3
 
 
             };
@@ -60,7 +81,8 @@ namespace PetShop.Infrastructure.SqlData
 
                 Name = "penny",
                 Dob = System.DateTime.Now.AddYears(-2),
-                Price = 200.00
+                Price = 200.00,
+                Type = pettype2
 
 
             };
@@ -69,7 +91,8 @@ namespace PetShop.Infrastructure.SqlData
 
                 Name = "kim",
                 Dob = System.DateTime.Now.AddYears(-7),
-                Price = 300.00
+                Price = 300.00,
+                Type = pettype2
 
             };
 

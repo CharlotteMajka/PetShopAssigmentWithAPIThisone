@@ -50,7 +50,7 @@ namespace PetShop.Core.ApplicationServiceImple
             {
                 throw new ArgumentNullException("PetType is null");
             }
-            petTypeRepo.DeletePetType(pettype.id);
+            petTypeRepo.DeletePetType(pettype);
             return pettype;
         }
 

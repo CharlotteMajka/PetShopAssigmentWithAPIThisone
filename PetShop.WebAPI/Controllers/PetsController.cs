@@ -59,7 +59,7 @@ namespace PetShop.WebAPI.Controllers
             try
             {
                 var pettype = pet.Type;
-                var petReturn = petService.AddNewPet(pet.Name,  pet.Type, pet.Dob, pet.Color, pet.PreviousOwner, pet.Price, pet.SoldDate);
+                var petReturn = petService.AddNewPet(pet);
 
                 return Created("", petReturn);
             }

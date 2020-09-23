@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 using PetShop.Core.DomainServices;
 using PetShop.Core.Entities;
 using PetShop.Core.Filters;
@@ -18,20 +20,32 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 
         public FilteredList<PetType> ReadAllTypes(Filter filter)
         {
-            throw new NotImplementedException();
+            var FiltertPetTyps = new FilteredList<PetType>();
+
+            FiltertPetTyps.TotalCount = _petContext.PetTypes.Count();
+            FiltertPetTyps.FilterUsed = filter;
+
+            FiltertPetTyps.List = _petContext.PetTypes.ToList();
+
+            return FiltertPetTyps;
+
         }
 
         public PetType GetPetTypeById(int id)
         {
-            throw new NotImplementedException();
+            return _petContext.PetTypes.AsNoTracking().FirstOrDefault(p => p.id == id);
         }
 
         public PetType addPetType(PetType pettype)
         {
-            throw new NotImplementedException();
+            var newPettype = _petContext.PetTypes.Add(pettype);
+            _petContext.SaveChanges();
+
+            return newPettype.Entity;
+            
         }
 
-        public void DeletePetType(int id)
+        public void DeletePetType(PetType petTypeToDelete)
         {
             throw new NotImplementedException();
         }

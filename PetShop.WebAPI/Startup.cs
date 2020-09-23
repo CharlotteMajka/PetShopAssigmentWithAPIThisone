@@ -16,7 +16,7 @@ using Newtonsoft.Json;
 using PetShop.Core.ApplicationServiceImple;
 using PetShop.Core.ApplicationServices;
 using PetShop.Core.DomainServices;
-using PetShop.Infrastructure.Data;
+
 using PetShop.Infrastructure.SqlData;
 using PetShop.Infrastructure.SqlData.Repositories;
 
@@ -40,8 +40,8 @@ namespace PetShop.WebAPI
             serviceCollection.AddScoped<IOwnerService, OwnerService>();
             serviceCollection.AddScoped<IPetTypeService, PetTypeService>();
             serviceCollection.AddScoped<IPetRepository, PetRepositoryDb>();
-           serviceCollection.AddScoped<IOwnerRepository, OwnerRepostiory>();
-           serviceCollection.AddScoped<IPetTypeRerpository, PetTypeRepostiory>();
+           serviceCollection.AddScoped<IOwnerRepository, OwnerRepositoryDb>();
+           serviceCollection.AddScoped<IPetTypeRerpository, PetTypeRepositoryDb>();
 
             serviceCollection.AddSwaggerGen(options =>
             {

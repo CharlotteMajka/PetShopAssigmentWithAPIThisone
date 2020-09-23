@@ -13,32 +13,38 @@ namespace PetShop.Core.ApplicationServiceImple
    public class PetService : IPetService
     {
         private IPetRepository petRepository;
+        private IPetTypeRerpository petTypeRepo;
 
-
-        public PetService(IPetRepository _petRepository)
+        public PetService(IPetRepository _petRepository, IPetTypeRerpository _pettyperepo)
         {
             petRepository = _petRepository;
+            petTypeRepo = _pettyperepo;
            
         }
 
-        public Pet AddNewPet(string name, PetType pettype ,DateTime dob, string color, Owner previousOwner, double price, DateTime solddate)
+        public Pet AddNewPet(Pet TheNewPet)//(string name, PetType pettype ,DateTime dob, string color, Owner previousOwner, double price, DateTime solddate)
         {
-            if (name.Length <= 2)
+            if (TheNewPet.Name.Length <= 2)
             {
                 throw new InvalidDataException("Name must be longer than 2 letters");
             }
-
-            Pet TheNewPet = new Pet()
-            {
+            //Pet TheNewPet1 = new Pet(TheNewPet);
+            /*{
 
                 Name = name,
-                Type = pettype,
+                //Type = pettype,
                 Dob = dob,
                 Color = color,
                 PreviousOwner = previousOwner,
                 Price = price,
                 SoldDate = solddate
-            };
+            };*/
+            //if(TheNewPet.Type != null)
+            //{
+                var pettypeFromDb = petTypeRepo.GetPetTypeById(TheNewPet.Type.id);
+                TheNewPet.Type = pettypeFromDb;
+            //}
+           
             
             return petRepository.CreatePet(TheNewPet);
         }
@@ -59,10 +65,7 @@ namespace PetShop.Core.ApplicationServiceImple
             return pet; 
         }
 
-       /* public List<Pet> getPets()
-        {   
-            return petRepository.ReadPets();
-        }*/
+
 
         
 
@@ -102,46 +105,23 @@ namespace PetShop.Core.ApplicationServiceImple
             }
         }
 
-       /* public IEnumerable<Pet> SortPetsByPrice()
-        {
-           var SortPetsByPrice = petRepository.ReadPets().OrderByDescending(s => s.Price);
-
-            return SortPetsByPrice.ToList();
-
-
-        }*/
-
-
-        /*public IEnumerable<Pet> Get5ChepestPets()
-        {
-            var Get5ChepestPets = petRepository.ReadPets().OrderBy(s => s.Price);
-            
-            return Get5ChepestPets;
-
-
-        }*/
-
-        /*public IEnumerable<Pet> SearchPetByType(string stringToLookFore)
-        {
-
-            return petRepository.ReadPets().FindAll(s => s.Type.ToLower().Contains(stringToLookFore.ToLower()));
-        }*/
+   
 
         public Pet GetPetById(int id)
-        {   
+        {
             if (id < 0)
             {
                 throw new InvalidDataException("ID must be above 0");
-            
+
             }
 
             var tjekpet = petRepository.GetPetByID(id);
-             if (tjekpet == null)
+            if (tjekpet == null)
             {
                 throw new ArgumentNullException("There is no pet with the id " + id + "... ");
             }
 
-            return tjekpet);
+            return tjekpet;
         }
 
         public FilteredList<Pet> GetAllPets(Filter filter)
