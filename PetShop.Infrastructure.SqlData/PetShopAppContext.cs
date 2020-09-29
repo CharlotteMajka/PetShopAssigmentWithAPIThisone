@@ -10,10 +10,11 @@ namespace PetShop.Infrastructure.SqlData
     {
         public PetShopAppContext(DbContextOptions<PetShopAppContext> opt) : base(opt) { }
 
-        /*protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //modelBuilder.Entity<PetType>().HasKey(p => p.id);
             base.OnModelCreating(modelBuilder);
-        }*/
+        }
 
         public DbSet<Pet> pets { get; set; }
         public DbSet<Owner> Owners { get; set; }
