@@ -38,7 +38,11 @@ namespace PetShop.Infrastructure.SqlData.Repositories
         }
         public Owner CreateOwner(Owner TheNewOwner)
         {
-            throw new NotImplementedException();
+         
+            var Owner = _petContext.Owners.Add(TheNewOwner);
+            _petContext.SaveChanges();
+
+            return Owner.Entity;
         }
 
         public void DeleteOwner(Owner OwnerToDelete)
