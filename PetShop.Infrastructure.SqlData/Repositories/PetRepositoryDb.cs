@@ -32,14 +32,14 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 
         public void DeletePet(Pet petToDelete)
         {
-            var petdeleted = _petContext.Remove(petToDelete);
+            _petContext.Remove(petToDelete);
             _petContext.SaveChanges(); 
         
         }
 
         public Pet GetPetByID(int id)
         {
-           return _petContext.pets.AsNoTracking().Include(p => p.Type.Pettype).FirstOrDefault(p => p.Id == id);
+           return _petContext.pets.AsNoTracking().FirstOrDefault(p => p.Id == id);
         }
 
         public FilteredList<Pet> ReadAll(Filter filter)
@@ -61,7 +61,9 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 
         public Pet UpdatePet(int id, Pet pet)
         {
-            throw new NotImplementedException();
+            var petUpdated = _petContext.Update(pet);
+            _petContext.SaveChanges();
+            return petUpdated.Entity;
         }
     }
 }

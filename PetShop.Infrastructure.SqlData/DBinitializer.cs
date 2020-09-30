@@ -9,8 +9,8 @@ namespace PetShop.Infrastructure.SqlData
     {
         public static void seedDB(PetShopAppContext ctx)
         {
-            ctx.Database.EnsureDeleted();
-            ctx.Database.EnsureCreated();
+           // ctx.Database.EnsureDeleted();
+           ctx.Database.EnsureCreated();
 
             var petType1 = new PetType()
             {

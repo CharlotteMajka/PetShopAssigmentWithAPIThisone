@@ -47,14 +47,17 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 
         public void DeleteOwner(Owner OwnerToDelete)
         {
-            throw new NotImplementedException();
+            _petContext.Owners.Remove(OwnerToDelete);
+            _petContext.SaveChanges();
         }
 
        
 
         public Owner UpdateOwner(int id, Owner owner)
         {
-            throw new NotImplementedException();
+            var updatedowner  =_petContext.Update(owner);
+            _petContext.SaveChanges();
+            return updatedowner.Entity;
         }
     }
 }

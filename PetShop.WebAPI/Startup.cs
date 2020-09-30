@@ -34,9 +34,10 @@ namespace PetShop.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddDbContext<PetShopAppContext>(opt => {
-                opt.UseSqlite("Data Source=PetShopApp.db");
-                }, ServiceLifetime.Transient);
+            serviceCollection.AddDbContext<PetShopAppContext>(opt => 
+            //{
+                opt.UseSqlite("Data Source=PetShopApp.db"));
+               // },ServiceLifetime.Transient);
 
             serviceCollection.AddScoped<IPetService, PetService>();
             serviceCollection.AddScoped<IOwnerService, OwnerService>();

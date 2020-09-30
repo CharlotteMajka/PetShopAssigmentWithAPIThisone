@@ -23,7 +23,7 @@ namespace PetShop.Core.ApplicationServices
         //Update
         public PetType updatePet(int id, PetType pertype);
 
-        public PetType addPetToPettype(Pet petToAdd, PetType pettype);
+      
 
     }
 }

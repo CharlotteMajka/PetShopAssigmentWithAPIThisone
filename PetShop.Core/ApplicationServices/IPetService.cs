@@ -13,7 +13,7 @@ namespace PetShop.Core.ApplicationServices
         //public List<Pet> getPets();
 
         //create 
-        Pet AddNewPet(Pet TheNewPet);//(string name, PetType pettypeID, DateTime dob, string color, Owner previousOwner, double price, DateTime solddate);
+        Pet AddNewPet(Pet TheNewPet);
 
         //Delete
         Pet DeletePet(int id);
@@ -21,10 +21,6 @@ namespace PetShop.Core.ApplicationServices
         //Update
         Pet UpdatePet(int idToupdate, Pet petToUpdate);
 
-        //Read
-        //IEnumerable<Pet> SortPetsByPrice();
-        //IEnumerable<Pet> Get5ChepestPets();    
-        //IEnumerable<Pet> SearchPetByType(string stringToLookFore);
         Pet GetPetById(int id);
 
         FilteredList<Pet> GetAllPets(Filter filter);

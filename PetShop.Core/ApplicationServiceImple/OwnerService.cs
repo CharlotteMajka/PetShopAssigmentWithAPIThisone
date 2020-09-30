@@ -41,16 +41,17 @@ namespace PetShop.Core.ApplicationServiceImple
         }
 
         public Owner GetOwnerById(int id)
-        { //var owner = ownerrepo.GetOwnerByID(id);
+        { 
             if (id <= 0)
             {
                 throw new InvalidDataException("ID can't bu 0 or under!");
             }
-            if (ownerrepo.GetOwnerByID(id) == null )
+            var ownerToReturn= ownerrepo.GetOwnerByID(id);
+            if ( ownerToReturn== null )
             {
                 throw new ArgumentNullException("Owner could not be found");
             }
-            return ownerrepo.GetOwnerByID(id);
+            return ownerToReturn;
         }
 
         public FilteredList<Owner> ReadOwners(Filter filter)
@@ -63,18 +64,14 @@ namespace PetShop.Core.ApplicationServiceImple
             return ownerrepo.ReadOwners(filter);
         }
 
-        /*public List<Owner> ReadOwners()
-        {
-            return ownerrepo.ReadOwners();
-        }*/
-
         public Owner UpdateOwner(int idToupdate, Owner OwnerToUpdate)
         {
             if (idToupdate <= 0)
             {
                 throw new InvalidDataException("ID must be above 0");
             }
-           
+            
+            
             else if (ownerrepo.GetOwnerByID(idToupdate) == null)
             {
 

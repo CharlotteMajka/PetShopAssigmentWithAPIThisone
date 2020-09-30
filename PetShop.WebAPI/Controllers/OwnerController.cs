@@ -87,8 +87,13 @@ namespace PetShop.WebAPI.Controllers
 
             try
             {
+                if(id == owner.id)
                 return Accepted(ownerService.UpdateOwner(id, owner));
-
+                else
+                {
+                    return StatusCode(400, "ID's does not match");
+                    //throw new InvalidDataException("");
+                }
             }
             catch (InvalidDataException e)
             {
@@ -117,8 +122,7 @@ namespace PetShop.WebAPI.Controllers
             {
 
                 return StatusCode(500, e.Message);
-                //kode med 404 skal laves 
-            }
+                            }
             catch (ArgumentNullException e)
             {
                 return StatusCode(404, e.Message);

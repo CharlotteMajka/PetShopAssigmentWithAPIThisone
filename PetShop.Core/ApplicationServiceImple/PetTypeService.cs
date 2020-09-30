@@ -18,21 +18,6 @@ namespace PetShop.Core.ApplicationServiceImple
             petTypeRepo = petRepo;
         }
 
-        public PetType addPetToPettype(Pet petToAdd, PetType pettype)
-        {
-            if (petToAdd == null)
-            {
-                throw new ArgumentNullException("Pet not found");
-            }
-            if (pettype == null)
-            {
-                throw new ArgumentNullException("PetType not found");
-            }
-
-            petTypeRepo.AddPetToPetType(petToAdd, pettype);
-            return pettype;
-        }
-
         public PetType addPetType(PetType pettype)
         {
             var pettypenew = new PetType()
@@ -45,6 +30,11 @@ namespace PetShop.Core.ApplicationServiceImple
 
         public PetType DeletePetType(int id)
         {
+            if (id <= 0)
+            {
+                throw new InvalidDataException("id must be above 0");
+
+            }
             var pettype = petTypeRepo.GetPetTypeById(id);
             if (pettype == null)
             {
@@ -66,7 +56,7 @@ namespace PetShop.Core.ApplicationServiceImple
 
         public PetType updatePet(int id, PetType pettype)
         {
-            if ( id < 0)
+            if ( id <= 0)
             {
                 throw new InvalidDataException("id must be above 0");
 

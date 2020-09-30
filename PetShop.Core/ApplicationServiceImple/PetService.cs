@@ -22,29 +22,15 @@ namespace PetShop.Core.ApplicationServiceImple
            
         }
 
-        public Pet AddNewPet(Pet TheNewPet)//(string name, PetType pettype ,DateTime dob, string color, Owner previousOwner, double price, DateTime solddate)
+        public Pet AddNewPet(Pet TheNewPet)
         {
             if (TheNewPet.Name.Length <= 2)
             {
                 throw new InvalidDataException("Name must be longer than 2 letters");
             }
-            //Pet TheNewPet1 = new Pet(TheNewPet);
-            /*{
-
-                Name = name,
-                //Type = pettype,
-                Dob = dob,
-                Color = color,
-                PreviousOwner = previousOwner,
-                Price = price,
-                SoldDate = solddate
-            };*/
-            //if(TheNewPet.Type != null)
-            //{
                 var pettypeFromDb = petTypeRepo.GetPetTypeById(TheNewPet.Type.id);
                 TheNewPet.Type = pettypeFromDb;
-            //}
-           
+
             
             return petRepository.CreatePet(TheNewPet);
         }
@@ -61,7 +47,7 @@ namespace PetShop.Core.ApplicationServiceImple
             {
                 throw new ArgumentNullException("Pet Could not be found");
             }
-             petRepository.DeletePet(pet);
+             petRepository.DeletePet(petRepository.GetPetByID(id));
             return pet; 
         }
 
