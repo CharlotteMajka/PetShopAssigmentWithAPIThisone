@@ -39,7 +39,7 @@ namespace PetShop.Infrastructure.SqlData.Repositories
 
         public Pet GetPetByID(int id)
         {
-            return _petContext.pets.AsNoTracking().FirstOrDefault(p => p.Id == id);
+           return _petContext.pets.AsNoTracking().Include(p => p.Type.Pettype).FirstOrDefault(p => p.Id == id);
         }
 
         public FilteredList<Pet> ReadAll(Filter filter)

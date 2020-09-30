@@ -78,13 +78,11 @@ namespace PetShop.Core.ApplicationServiceImple
                 throw new InvalidDataException("ID must be above 0");
             }
             Pet fetchedPetFromDB = petRepository.GetPetByID(idToupdate);
-             if (fetchedPetFromDB == null)
+            if (fetchedPetFromDB == null)
             {
 
                 throw new ArgumentNullException("The pet could not be found");
             }
-
-
             if (!petToUpdate.SoldDate.Equals(DateTime.MinValue) && petToUpdate.SoldDate < fetchedPetFromDB.Dob)
             {
                 throw new InvalidDataException("the pet can't be sold before it is born!");
@@ -99,9 +97,7 @@ namespace PetShop.Core.ApplicationServiceImple
             }
             else
             {
-
-                return petRepository.UpdatePet(idToupdate, petToUpdate);
-
+              return petRepository.UpdatePet(idToupdate, petToUpdate);
             }
         }
 
